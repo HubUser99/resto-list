@@ -13,7 +13,11 @@ import { filterRestaurantsByName } from "../utils/search";
 import { debounce } from "lodash";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
+import TiledIcon from "@material-ui/icons/Apps";
+import ListIcon from "@material-ui/icons/List";
 import { sortRestaurantsByName } from "../utils/sort";
+import { useTheme } from "@material-ui/core/styles";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 interface Props {
     restaurants: Restaurant[];
@@ -21,9 +25,12 @@ interface Props {
 
 const Restaurants = ({ restaurants }: Props) => {
     const classes = useStyles();
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.down("sm"));
 
     const [searchString, setSearchString] = useState("");
     const [isAscending, setIsAscending] = useState(false);
+    const [isTiled, setIsTiled] = useState(false);
 
     const filteredResult = filterRestaurantsByName(restaurants, searchString);
     const processedResult = sortRestaurantsByName(filteredResult, isAscending);
@@ -46,10 +53,14 @@ const Restaurants = ({ restaurants }: Props) => {
         setIsAscending((prevState) => !prevState);
     };
 
+    const handleChangeIsTiled = () => {
+        setIsTiled((prevState) => !prevState);
+    };
+
     return (
-        <Grid container className={classes.root}>
-            <Grid item md={3} />
-            <Grid item xs={12} md={6}>
+        <Grid container className={classes.root} justify="center">
+            {matches ? null : <Grid item md={1} />}
+            <Grid item sm={12} md={10}>
                 <div>
                     <TextField
                         label="Search"
@@ -66,12 +77,31 @@ const Restaurants = ({ restaurants }: Props) => {
                         )}
                     </IconButton>
                 </div>
+            </Grid>
+            {matches ? null : (
+                <Grid item md={1}>
+                    <IconButton onClick={handleChangeIsTiled}>
+                        {isTiled ? <ListIcon /> : <TiledIcon />}
+                    </IconButton>
+                </Grid>
+            )}
+            <Grid
+                item
+                sm={12}
+                md={8}
+                container
+                justify={isTiled && hasRestaurants ? "flex-start" : "center"}
+            >
                 {hasRestaurants ? (
                     processedResult.map((restaurant) => (
-                        <RestaurantCard
-                            key={restaurant.name}
-                            restaurant={restaurant}
-                        />
+                        <>
+                            <Grid item sm={12} md={isTiled ? 4 : 7}>
+                                <RestaurantCard
+                                    key={restaurant.name}
+                                    restaurant={restaurant}
+                                />
+                            </Grid>
+                        </>
                     ))
                 ) : (
                     <Typography
