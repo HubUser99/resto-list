@@ -1,6 +1,31 @@
-# Getting Started with Create React App
+# RestoList
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project provides possibility to browse data provided at [Wolt official GitHub page](https://raw.githubusercontent.com/woltapp/summer2020/master/restaurants.json) which contains multiple restaurants with additional information. 🍕
+
+## Description
+
+This application allows user to browse dining places.\
+It is possible to sort the list of the restaurants by name in ascending and descending alphabetical order as well as to search for a restaurant by its name.
+
+This project was create on a base of JavaScript library React.\
+There are also other libraries have been used in this project to provide better user experience, such as [MaterialUI](https://material-ui.com/), [lodash](https://lodash.com/) and [blurhash](https://blurha.sh/).
+
+## Project structure
+
+Most of the source code is located under the [src](./src) directory.\
+
+- [src/comm](./src/comm) contains code for fetching of the data from the remote server.
+- [src/components](./src/components) contains React components that are intended for displaying data of the single data item on the screen.
+- [src/containers](./src/containers) contains React components that render multiple of other components instead of displaying data items directly.
+- [src/types](./src/types) contains Typescript types definitions that describe application data.
+- [src/utils](./src/utils) contains helper functions for operations on different data types such as strings and arrays.
+
+## Implementation details
+
+### Search
+
+Search functionality is implemented with respect to a possible growth of data that is needed to be handled.\
+Search string input field is using debounce technique that provides low input delay when manipulating large number of data entries and escapes unnecessary of users computation resources. ([example](./src/containers/Restaurants.tsx))
 
 ## Available Scripts
 
