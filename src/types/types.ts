@@ -5,7 +5,7 @@ export interface RestaurantsApi {
 export interface Restaurant {
     blurhash: string;
     city: string;
-    currency: string;
+    currency: Currency;
     delivery_price: number;
     description: string;
     image: string;
@@ -14,3 +14,5 @@ export interface Restaurant {
     online: boolean;
     tags: Array<string>;
 }
+
+export type Currency = "EUR" | "USD"
