@@ -48,8 +48,8 @@ const Restaurants = ({ restaurants }: Props) => {
 
     return (
         <Grid container className={classes.root}>
-            <Grid item sm={false} md={3} />
-            <Grid item sm={12} md={6}>
+            <Grid item md={3} />
+            <Grid item xs={12} md={6}>
                 <div>
                     <TextField
                         label="Search"
