@@ -3,12 +3,6 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { fetchRestaurants } from "./comm/api";
-
-(async () => {
-    const restaurants = await fetchRestaurants();
-    console.log(restaurants);
-})();
 
 ReactDOM.render(
     <React.StrictMode>
